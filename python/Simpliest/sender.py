@@ -1,12 +1,10 @@
 from pika import BlockingConnection, SSLOptions, ConnectionParameters, PlainCredentials, URLParameters 
 from pika.exchange_type import ExchangeType
 import random
-#import os
-#import socket
-#import ssl
+from hostname import hostname
 
 
-hostname="amqps://jmnvgeqr:1FNeqMtZKcTKJSMqPRDVQUj9Oo1iBB-r@chimpanzee.rmq.cloudamqp.com:5671/jmnvgeqr" 
+
 
 def sender_run(host):
     parameters = URLParameters(host)

@@ -5,12 +5,10 @@ import random
 from datetime import datetime
 import time
 import os
-
+from hostname import hostname
 
 
 # Подключение к серверу RabbitMQ server в облачной платформе cloudamqp.com
-hostname="amqps://jmnvgeqr:1FNeqMtZKcTKJSMqPRDVQUj9Oo1iBB-r@chimpanzee.rmq.cloudamqp.com:5671/jmnvgeqr" 
-
 connection = pika.BlockingConnection(pika.URLParameters(hostname))
 channel = connection.channel()
 

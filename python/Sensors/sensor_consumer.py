@@ -6,12 +6,10 @@ import json
 import random
 import time
 from time import sleep
-
+from hostname import hostname
 
 
 # Connect to RabbitMQ server
-hostname="amqps://jmnvgeqr:1FNeqMtZKcTKJSMqPRDVQUj9Oo1iBB-r@chimpanzee.rmq.cloudamqp.com:5671/jmnvgeqr" 
-
 connection = BlockingConnection(URLParameters(hostname))
 channel = connection.channel()
 

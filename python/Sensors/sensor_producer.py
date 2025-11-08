@@ -1,17 +1,14 @@
-#https://babok-school.ru/blog/how-to-write-producer-and-consumer-for-rabbitmq-in-colab/
 
 from pika import BlockingConnection, SSLOptions, ConnectionParameters, PlainCredentials, URLParameters 
 from pika.exchange_type import ExchangeType
 import json
 import random
 import time
-
+from hostname import hostname
 
 
 
 # Connect to RabbitMQ server
-hostname="amqps://jmnvgeqr:1FNeqMtZKcTKJSMqPRDVQUj9Oo1iBB-r@chimpanzee.rmq.cloudamqp.com:5671/jmnvgeqr" 
-
 connection = BlockingConnection(URLParameters(hostname))
 channel = connection.channel()
 
