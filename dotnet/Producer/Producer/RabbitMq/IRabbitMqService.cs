@@ -6,7 +6,7 @@ namespace Producer.RabbitMq
     {
         void SendMessage(object obj);
         //void SendMessage(string message);
-        void SendMessageAsync(string message);
+        void SendMessage(string message);
         //Task DoOperationAsync(); // 
         //IConnection CreateChannel();
     }

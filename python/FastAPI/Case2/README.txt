@@ -1,0 +1,1 @@
+https://github.com/XCanG/fastapi-rabbitmq/tree/master

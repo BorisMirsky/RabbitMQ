@@ -1,4 +1,3 @@
-#https://timeweb.cloud/tutorials/microservices/ustanovka-i-nastroika-rabbitmq
 
 from pika import BlockingConnection, SSLOptions, ConnectionParameters, PlainCredentials, URLParameters 
 from pika.exchange_type import ExchangeType

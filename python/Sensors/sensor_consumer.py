@@ -1,4 +1,3 @@
-# https://babok-school.ru/blog/how-to-write-producer-and-consumer-for-rabbitmq-in-colab/
 
 from pika import BlockingConnection, SSLOptions, ConnectionParameters, PlainCredentials, URLParameters 
 from pika.exchange_type import ExchangeType
