@@ -5,42 +5,47 @@ using System.Diagnostics;
 using System.Text;
 
 
-namespace ConsumeConsoleApp
+namespace consumerConsoleApp
 {
-    public static class RabbitConsumer
+    public class Program
     {
-        static async void RunConsum()
+        public static async Task Main(string[] args)
         {
-            string host = "amqps://jmnvgeqr:1FNeqMtZKcTKJSMqPRDVQUj9Oo1iBB-r@chimpanzee.rmq.cloudamqp.com:5671/jmnvgeqr";
-            var factory = new ConnectionFactory() { Uri = new Uri(host) };
+            string host = "";
+            var factory = new ConnectionFactory { HostName = host }; 
             using var connection = await factory.CreateConnectionAsync();
             using var channel = await connection.CreateChannelAsync();
-            using (channel.QueueDeclareAsync(queue: "dotnetRabbit",
-                                             durable: false,
-                                             exclusive: false,
-                                             autoDelete: false,
-                                             arguments: null))
             {
+                await channel.QueueDeclareAsync(
+                    queue: "dotnetRabbit",
+                    durable: false,
+                    exclusive: false,
+                    autoDelete: false,
+                    arguments: null);
+
+                Debug.WriteLine("Waiting for messages. To exit press CTRL+C");
+
                 var consumer = new AsyncEventingBasicConsumer(channel);
                 consumer.ReceivedAsync += async (model, ea) =>
-                    {
-                        var body = ea.Body.ToArray();
-                        var message = Encoding.UTF8.GetString(body);
-                        Debug.WriteLine(" [x] Received {0}", message);
-                    };
-                string consumerMessage = await channel.BasicConsumeAsync(queue: "dotnetRabbit",
-                                         autoAck: true,
-                                         consumer: consumer);
-                Debug.WriteLine("consumerMessage");
-                Debug.WriteLine(consumerMessage);
+                {
+                    var body = ea.Body.ToArray();
+                    var message = Encoding.UTF8.GetString(body);
+                    Debug.WriteLine($" [x] Received: {message}");
+                    await Task.CompletedTask;
+                };
+
+                await channel.BasicConsumeAsync(
+                    queue: "myQueue",
+                    autoAck: false,
+                    consumer: consumer);
+                Console.ReadLine();
             }
-
-
-            static void Main(string[] args)
-            {
-                RunConsum();
-            }
-
         }
     }
 }
+
+
+
+//static void Main(string[] args)
+//Class1 cls = new();
+//cls.RunConsumer();
