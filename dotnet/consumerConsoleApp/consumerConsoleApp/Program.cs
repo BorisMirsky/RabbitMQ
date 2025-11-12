@@ -11,7 +11,7 @@ namespace consumerConsoleApp
     {
         public static async Task Main(string[] args)
         {
-            string host = "";
+            string host = "amqps://jmnvgeqr:1FNeqMtZKcTKJSMqPRDVQUj9Oo1iBB-r@chimpanzee.rmq.cloudamqp.com:5671/jmnvgeqr"; 
             var factory = new ConnectionFactory { HostName = host }; 
             using var connection = await factory.CreateConnectionAsync();
             using var channel = await connection.CreateChannelAsync();
