@@ -24,6 +24,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# hostname
+HostnameClass.cs
+
 ##### Linux
 *~
 

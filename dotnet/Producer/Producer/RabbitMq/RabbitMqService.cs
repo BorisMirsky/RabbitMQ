@@ -4,12 +4,13 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-
+using Producer;
 
 namespace Producer.RabbitMq
 {
     public class RabbitMqService : IRabbitMqService
     {
+        //string host = connectionHost;
         public void SendMessage(object obj)
         {
             var message = JsonSerializer.Serialize(obj);
