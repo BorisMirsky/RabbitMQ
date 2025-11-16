@@ -9,13 +9,9 @@ from hostname import hostname
 def receiver_run(host):
     parameters = URLParameters(host)
     connection = BlockingConnection(parameters)
-    # создаём канал
     channel = connection.channel()
-    # создаём обменник
     channel.exchange_declare('new_exchange', ExchangeType.direct)
-    # определяем очередь
     queue = channel.queue_declare(queue='new_queue')
-    # привязываем очередь к обменнику
     channel.queue_bind(exchange='new_exchange', queue='new_queue', routing_key='key')
     # функция, которая вызывается при получении сообщения
     def handle(channel, method, properties, body):

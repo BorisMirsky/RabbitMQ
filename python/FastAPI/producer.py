@@ -13,7 +13,7 @@ import asyncio
 
 app = FastAPI()
 
-
+# =====================   post async =====================
 @app.post("/send_message_async")
 async def send_message_async(txt):
     exch = 'fast_api_exchange'
@@ -21,13 +21,15 @@ async def send_message_async(txt):
     connection = await aio_pika.connect_robust(hostname) 
     channel = await connection.channel()
     exchange = await channel.declare_exchange(exch, aio_pika.ExchangeType.DIRECT)
-    queue = await channel.declare_queue("fastapi_queue")
+    queue = await channel.declare_queue(queue_name)
     message_body = json.dumps(txt)
     message = aio_pika.Message(body=message_body.encode(), content_type='application/json')
     await exchange.publish(message, routing_key="key")
     connection.close()
 
 
+
+# ========================== post =============================
 @app.post("/send_message")
 def send_message(txt):   
     parameters = pika.URLParameters(hostname)
@@ -44,7 +46,7 @@ def send_message(txt):
 
 
 message = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
-#send_message(message)
+send_message(message)
 
 message_async = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10)) + '_async'
 #loop = asyncio.get_event_loop()
