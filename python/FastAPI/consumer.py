@@ -13,25 +13,21 @@ import asyncio
 
 queue_name = 'fast_api_queue'
 
+async def main():
+    connection = await aio_pika.connect_robust(hostname,)
 
-async def callback(message):
-    txt = message.body.decode("utf-8")
-    data = json.loads(txt)
-    print('data from callback ', data)
-    #await db["preds"].insert_one(data)
+    async with connection:
+        channel = await connection.channel()
+        queue = await channel.declare_queue(queue_name)
+        #await channel.default_exchange.publish(aio_pika.Message(body="Hello, world!".encode()),routing_key="my_queue",)
+        async with queue.iterator() as queue_iter:
+            async for message in queue_iter:
+                async with message.process():
+                    print(f"Received message: {message.body.decode()}")
+                    break 
 
 
-async def main(loop):
-    connection = await aio_pika.connect(hostname, loop = loop)
-    channel = await connection.channel()
-    queue = await channel.declare_queue(queue_name)
-    await queue.consume(callback, no_ack = True)
-
-
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.create_task(main(loop))
-    loop.run_forever()
+asyncio.run(main())
 
 
 

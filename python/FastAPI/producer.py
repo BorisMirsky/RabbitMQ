@@ -9,9 +9,13 @@ from hostname import hostname
 import random
 import string
 import asyncio
+import time
+import datetime
+
 
 
 app = FastAPI()
+
 
 # =====================   post async =====================
 @app.post("/send_message_async")
@@ -25,7 +29,8 @@ async def send_message_async(txt):
     message_body = json.dumps(txt)
     message = aio_pika.Message(body=message_body.encode(), content_type='application/json')
     await exchange.publish(message, routing_key="key")
-    connection.close()
+    print("async cообщение {} отправлено".format(txt))
+    await connection.close()
 
 
 
@@ -45,15 +50,17 @@ def send_message(txt):
     connection.close()
 
 
-message = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
-send_message(message)
 
-message_async = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10)) + '_async'
-#loop = asyncio.get_event_loop()
-#loop.run_until_complete(send_message_async(message_async))
-#loop.run_forever()
+ts = time.time()
+time_result = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 
 
+message = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10)) + " " + str(time_result)
+#print(message)
+#send_message(message)
 
 
+message_async = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10)) + " " + time_result + '_async'
+#print(message_async)
+#asyncio.run(send_message_async(message_async))
 
