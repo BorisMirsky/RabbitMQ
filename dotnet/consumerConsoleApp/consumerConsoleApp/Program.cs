@@ -6,7 +6,7 @@ using System.Text;
 
 
 
-string host = HostnameClass.host;
+string host = HostName.host;
 
 var factory = new ConnectionFactory() { Uri = new Uri(host) };
 using var connection = await factory.CreateConnectionAsync();

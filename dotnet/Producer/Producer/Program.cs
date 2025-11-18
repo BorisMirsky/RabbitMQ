@@ -3,7 +3,6 @@ using Producer.RabbitMq;
 var builder = WebApplication.CreateBuilder(args);
 
 string connectionHost = builder.Configuration.GetConnectionString("DefaultConnection")!;
-//builder.Services.AddDbContext<IntravisionDbContext>(options => options.UseSqlite(connection));
 builder.Services.AddControllers();
 builder.Services.AddScoped<IRabbitMqService, RabbitMqService>();
 builder.Services.AddSwaggerGen();

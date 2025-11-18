@@ -7,11 +7,11 @@ namespace Producer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RabbitMqController : ControllerBase
+    public class RabbitController : ControllerBase
     {
         private readonly IRabbitMqService _mqService;
 
-        public RabbitMqController(IRabbitMqService mqService)
+        public RabbitController(IRabbitMqService mqService)
         {
             _mqService = mqService;
         }
@@ -27,5 +27,4 @@ namespace Producer.Controllers
         }
     }
 }
-
 

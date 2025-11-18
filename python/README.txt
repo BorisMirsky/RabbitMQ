@@ -28,4 +28,4 @@ port = 5671 или 5672
 
 
 4. Fast API
-todo
+ready

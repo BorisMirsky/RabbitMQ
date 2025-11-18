@@ -6,11 +6,13 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Producer;
 
+
 namespace Producer.RabbitMq
 {
     public class RabbitMqService : IRabbitMqService
     {
         //string host = connectionHost;
+        string hostName = HostName.host;
         public void SendMessage(object obj)
         {
             var message = JsonSerializer.Serialize(obj);
@@ -19,7 +21,7 @@ namespace Producer.RabbitMq
 
         public async void SendMessage(string message)
         {
-            string host = "amqps://jmnvgeqr:1FNeqMtZKcTKJSMqPRDVQUj9Oo1iBB-r@chimpanzee.rmq.cloudamqp.com:5671/jmnvgeqr";
+            string host = hostName;
             var factory = new ConnectionFactory() { Uri = new Uri(host) };
             using IConnection connection = await factory.CreateConnectionAsync();
             using var channel = await connection.CreateChannelAsync();
