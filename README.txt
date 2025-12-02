@@ -1,3 +1,3 @@
-Использование RabbitMQ в python и .net.
+Примеры использования RabbitMQ в python и .net.
 
 Отдельные README внутри папок.
